@@ -1,0 +1,23 @@
+{
+    "site": {
+        "area": {
+            "name": "UK-LONDON",
+            "parentName": "Global"
+        },
+        "building": {
+            "name": "PARK HOUSE",
+            "address": "16-18 Finsbury Circus, London EC2M 7EB, United Kingdom",
+            "parentName": "Global/UK-LONDON",
+            "latitude": "51.518230",
+            "longitude": "-0.086090"
+        },
+        "floor": {
+            "name": "FLOOR 7",
+            "parentName": "Global/UK-LONDON/PARK HOUSE",
+            "rfModel": "Cubes And Walled Offices",
+            "width": "500",
+            "length": "500",
+            "height": "500"
+        }
+    }
+}
