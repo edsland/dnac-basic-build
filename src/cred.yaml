@@ -1,0 +1,5 @@
+---
+   dnac-server: "https://text/"
+   dnac-port: 443
+   username: "admin"
+   password: text
