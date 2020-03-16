@@ -1,12 +1,17 @@
 {
     "settings": {
-      "ippool": [
-        {
-            "ipPoolName": "GLOBAL-POOL",
-            "type": "Generic",
-            "ipPoolCidr": "100.96.0.0/11"
-        }
-    ]
-  }
-    
+        "ippool": [
+            {
+                "ipPoolName": "GLOBAL-POOL",
+                "type": "generic",
+                "ipPoolCidr": "100.96.0.0/16",
+                "gateway": " ",
+                "dhcpServerIps": [
+                ],
+                "dnsServerIps": [  
+                ],
+                "IpAddressSpace": "ipv4"
+            }
+        ]
+    }
 }

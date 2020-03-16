@@ -11,9 +11,6 @@ with open('cred.json') as json_file:
 dnac = api.DNACenterAPI(base_url=cred['dnacurl'],
 username=cred['username'],password=cred['passwd'], verify=False)
 
-""" sites = dnac.sites.get_site()
-print (sites)
-"""
 
 def create_mysites():
     with open('sites.json') as json_file:
@@ -31,26 +28,23 @@ def create_mysites():
             time.sleep(1)
     except ApiError as e:
             print(e)
-
-dnac.custom_caller.add_api('add_global_ip_pool', 
-                            lambda pool:
-                            dnac.custom_caller.add_api(
-                                'POST',
-                                '/dna/intent/api/v1/global-pool',
-                                json=pool)
-                            )
-
-    
+  
 def create_myglobalpool():
     with open('pools.json') as json_file:
         pools = json.load(json_file)
-        print(pools['settings'])
-        dnac.custom_caller.add_global_ip_pool(pools)
-        
+    headers={"content-type" : "application/json", "__runsync" : "True"}
+    url = 'dna/intent/api/v1/global-pool'
+    payload = pools
+
+    try:
+        status = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
+        print(json.dumps(status, indent=2))
+    except ApiError as e:
+            print(e)
     
 
 
-
 #create_mysites()
-create_myglobalpool()
+#create_myglobalpool()
 #create_mycredentials()
+
