@@ -1,0 +1,12 @@
+{
+    "settings": {
+      "ippool": [
+        {
+            "ipPoolName": "GLOBAL-POOL",
+            "type": "Generic",
+            "ipPoolCidr": "100.96.0.0/11"
+        }
+    ]
+  }
+    
+}

@@ -8,16 +8,62 @@
             "name": "PARK HOUSE",
             "address": "16-18 Finsbury Circus, London EC2M 7EB, United Kingdom",
             "parentName": "Global/UK-LONDON",
-            "latitude": "51.518230",
-            "longitude": "-0.086090"
+            "latitude": 51.518230,
+            "longitude": -0.086090
         },
         "floor": {
             "name": "FLOOR 7",
             "parentName": "Global/UK-LONDON/PARK HOUSE",
             "rfModel": "Cubes And Walled Offices",
-            "width": "500",
-            "length": "500",
-            "height": "500"
+            "width": 100,
+            "length": 100,
+            "height": 10
         }
-    }
+    },
+    "settings": {
+      "cliCredential": [
+          {
+              "description": "CLI Cred",
+              "username": "netadmin",
+              "password": "C1sco12345",
+              "enablePassword": "C1sco12345"
+          }
+      ],
+      "snmpV2cRead": [
+          {
+              "description": "RO-Testing",
+              "readCommunity": "ro"
+          }
+      ],
+      "snmpV2cWrite": [
+          {
+              "description": "RW",
+              "writeCommunity": "rw"
+          }
+      ],
+      "httpsRead": [
+          {
+              "name": "HTTP_RO",
+              "username": "netadmin",
+              "password": "C1sco12345",
+              "port": "443"
+          }
+      ],
+      "httpsWrite": [
+          {
+              "name": "HTTP_RW",
+              "username": "netadmin",
+              "password": "C1sco12345",
+              "port": "443"
+          }
+      ],
+      "ippool": [
+        {
+            "ipPoolName": "GLOBAL-POOL",
+            "type": "Generic",
+            "ipPoolCidr": "100.96.0.0/11"
+        }
+    ]
+  }
+    
 }
