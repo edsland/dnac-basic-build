@@ -2,7 +2,7 @@
     "settings": {
         "ippool": [
             {
-                "ipPoolName": "GLOBAL-POOL",
+                "ipPoolName": "GLOBAL-POOL-1",
                 "type": "generic",
                 "ipPoolCidr": "100.96.0.0/16",
                 "gateway": " ",
@@ -12,6 +12,7 @@
                 ],
                 "IpAddressSpace": "ipv4"
             }
+
         ]
     }
 }
