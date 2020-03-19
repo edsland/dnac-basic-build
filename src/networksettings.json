@@ -1,0 +1,24 @@
+{
+    "settings": {
+        "dhcpServer": [
+            "100.64.0.133"
+        ],
+        "dnsServer": {
+            "domainName": "sdapov.local",
+            "primaryIpAddress": "100.64.0.133",
+            "secondaryIpAddress": ""
+        },
+        "syslogServer": {
+            "ipAddresses": [""],
+            "configureDnacIP": true
+        },
+        "snmpServer": {
+            "ipAddresses": [""],
+            "configureDnacIP": true
+        },
+        "ntpServer": [
+            "100.64.0.133"
+        ],
+        "timezone": "Europe/London"
+    }
+}

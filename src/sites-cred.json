@@ -2,7 +2,7 @@
     "settings": {
         "cliCredential": [
             {
-                "description": "CLI Cred",
+                "description": "CLI",
                 "username": "netadmin",
                 "password": "C1sco12345",
                 "enablePassword": "C1sco12345"
@@ -10,7 +10,7 @@
         ],
         "snmpV2cRead": [
             {
-                "description": "RO-Testing",
+                "description": "RO",
                 "readCommunity": "ro"
             }
         ],
@@ -24,7 +24,7 @@
             {
                 "name": "HTTP_RO",
                 "username": "netadmin",
-                "password": "C1sco12345",
+                "password": "C1sco12#45",
                 "port": "443"
             }
         ],
@@ -32,7 +32,7 @@
             {
                 "name": "HTTP_RW",
                 "username": "netadmin",
-                "password": "C1sco12345",
+                "password": "C1sco12#45",
                 "port": "443"
             }
         ]
