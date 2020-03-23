@@ -21,16 +21,18 @@ def get_mysites(name=None):
         if name is None:
             response = dnac.sites.get_site()
             return response
+        
         else:
-            response = dnac.sites.get_site()
+            nsplit = name.split("/")
+            uname = nsplit[-1]
+            response = dnac.sites.get_site(name=name)
             for id in response['response']:
-                if name == id['name']:
+                #pprint.pprint(id)
+                if uname == id['name']:
                     return id['id']
             print("Please try using a valid site name!")
-            
     except ApiError as e:
             print(e)
-
 
 def create_mysites():
     with open('sites.json') as json_file:
@@ -50,34 +52,20 @@ def create_mysites():
 def create_myglobalpool():
     with open('pools.json') as json_file:
         data = json.load(json_file)
-        headers={"content-type" : "application/json", "__runsync" : "True"}
-        url = 'dna/intent/api/v1/global-pool'
-        payload = data
+
+    headers={"content-type" : "application/json", "__runsync" : "True"}
+    url = 'api/v2/ippool'
+    payload = data
+    #for key in data:
+    #    payload = data[key]
+    #    #pprint.pprint(payload)
 
     try:
         response = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
-        print(json.dumps(response, indent=2))
+        print (response['message'])
     except ApiError as e:
         print(e)
     
-def delete_mycredentials():
-    headers={"content-type" : "application/json", "__runsync" : "True"}
-    url = 'dna/intent/api/v1/device-credential/'
-
-    try:
-        response = dnac.custom_caller.call_api(method="GET", resource_path=url, headers=headers)
-        #print(json.dumps(response, indent=2))
-
-        for i in response:
-            #pprint.pprint (response[i])
-            for item in response[i]:
-                #pprint.pprint(item['id'])
-                url = 'dna/intent/api/v1/device-credential/' + item['id']
-                dnac.custom_caller.call_api(method="DELETE", resource_path=url, headers=headers)
-        #print('Device Credentials Deleted!')
-    except ApiError as e:
-        print(e)
-
 def get_mycredentials():
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/device-credential'
@@ -88,6 +76,7 @@ def get_mycredentials():
         #print(json.dumps(response, indent=2))
 
         if "message" in response:
+            #means device credentials are empty/ none configured
             return []
         else:
             for i in response:
@@ -95,61 +84,61 @@ def get_mycredentials():
                 for id in nest:
                     myids.append((id['id']))
             return myids
-
     except ApiError as e:
         print(e)
    
 def build_mycredentials():
-    credexist = get_mycredentials()
-    if credexist == 1:
-        print('Deleting existing Credentials ...')
+    if get_mycredentials() != []:
+        print('Deleting existing device credentials ...')
         delete_mycredentials()
-        print('Creating Updating Credentials ...')
+        print('Creating updating device credentials ...')
         create_mycredentials()
     else:
         create_mycredentials()
-        print('Creating New Credentials ...')
+        print('Creating new device credentials ...')
     
 def create_mycredentials():
-    with open('sites-cred.json') as json_file:
+    with open('dev-cred.json') as json_file:
         data = json.load(json_file)
     
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/device-credential'
     payload = data
 
-    if get_mycredentials() == []:
-        try:
-            dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
-            #print(json.dumps(response, indent=2))
-            print('Creating device credentials!')
-        except ApiError as e:
-            print(e)
-    else:
-        try:
-            for i in get_mycredentials():
-                url = 'dna/intent/api/v1/device-credential/' + i
-                print(url)
+    try:
+        response = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
+        return response['message']
+    except ApiError as e:
+        print(e)
+        
+def delete_mycredentials():
+    headers={"content-type" : "application/json", "__runsync" : "True"}
+
+    try:
+        for id in get_mycredentials():
+            url = 'dna/intent/api/v1/device-credential/' + id
+            dnac.custom_caller.call_api(method="DELETE", resource_path=url, headers=headers)
+    except ApiError as e:
+        print(e)
 
 def create_netsettings():
-    with open('networksettings.json') as json_file:
+    with open('netsettings.json') as json_file:
         data = json.load(json_file)
 
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/network/' + get_mysites('Global')
     payload = data
-    #print(url)
-    
     try:
         response = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
-        print(json.dumps(response, indent=2))
+        print('Created network settings!' )
+        return response['message']
     except ApiError as e:
         print(e)
-        
+
+
 #create_mysites()
-#create_myglobalpool()
 #create_mycredentials()
-get_mycredentials()
+#get_mycredentials()
 #delete_mycredentials()
 #build_mycredentials()
 #get_mysites('Global')
