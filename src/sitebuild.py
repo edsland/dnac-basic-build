@@ -15,8 +15,19 @@ dnac = api.DNACenterAPI(base_url=data['dnacurl'],
 username=data['username'],password=data['passwd'], verify=False)
 
 
+def task_status(taskid = None):
+    #this function is used to get task status, it returns the json response
+    headers={"content-type" : "application/json", "__runsync" : "True"}
+    url = 'dna/intent/api/v1/task/' + taskid
+    try:
+        response = dnac.custom_caller.call_api(method="GET", resource_path=url, headers=headers)
+        #print(json.dumps(response, indent=2))
+        return response
+    except ApiError as e:
+        print(e)
 
 def get_mysites(name=None):
+    #this function is use to retrieve site id when supplied with a site hierarchy name, ex Global/UK-LONDON
     try: 
         if name is None:
             response = dnac.sites.get_site()
@@ -35,6 +46,7 @@ def get_mysites(name=None):
             print(e)
 
 def create_mysites():
+    #this function create site design based on parameters specified in json file
     with open('sites.json') as json_file:
         data = json.load(json_file)
     
@@ -45,31 +57,14 @@ def create_mysites():
             sites[item] = data['site'][item]
             dnac.sites.create_site(site=sites, type=item)
             time.sleep(2)
-        print('Created site hierarchy!')
+        print('Creating site hierarchy!')
     except ApiError as e:
             print(e)
-  
-def create_myglobalpool():
-    with open('pools.json') as json_file:
-        data = json.load(json_file)
-
-    headers={"content-type" : "application/json", "__runsync" : "True"}
-    url = 'api/v2/ippool'
-    payload = data
-    #for key in data:
-    #    payload = data[key]
-    #    #pprint.pprint(payload)
-
-    try:
-        response = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
-        print (response['message'])
-    except ApiError as e:
-        print(e)
     
 def get_mycredentials():
+    #this function is use to retrieve global site device credential ids
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/device-credential'
-    #devcred = "" "message": "There is no device credential details present in the system." ""
     myids= []
     try:
         response = dnac.custom_caller.call_api(method="GET", resource_path=url, headers=headers)
@@ -88,10 +83,11 @@ def get_mycredentials():
         print(e)
    
 def build_mycredentials():
+    #this function checks if there's an existing device credential if so delete and create new one through the given json file
     if get_mycredentials() != []:
         print('Deleting existing device credentials ...')
         delete_mycredentials()
-        print('Creating updating device credentials ...')
+        print('Updating device credentials ...')
         create_mycredentials()
     else:
         create_mycredentials()
@@ -112,6 +108,7 @@ def create_mycredentials():
         print(e)
         
 def delete_mycredentials():
+    #this function will delete device credential
     headers={"content-type" : "application/json", "__runsync" : "True"}
 
     try:
@@ -122,24 +119,28 @@ def delete_mycredentials():
         print(e)
 
 def create_netsettings():
+     #### correct script
+    #this function create network settings at global level based on parameters specified in json file
     with open('netsettings.json') as json_file:
         data = json.load(json_file)
 
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/network/' + get_mysites('Global')
     payload = data
+    
     try:
         response = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
-        print('Created network settings!' )
-        return response['message']
+        print(response['message'])
     except ApiError as e:
         print(e)
 
 
-#create_mysites()
-#create_mycredentials()
+#testing functions
 #get_mycredentials()
 #delete_mycredentials()
-#build_mycredentials()
+#create_mycredentials()
 #get_mysites('Global')
-#create_netsettings()
+
+create_mysites()
+build_mycredentials()
+create_netsettings()

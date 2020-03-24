@@ -1,36 +1,32 @@
 {
-    "disco1":{
-    "discoveryType": "Range",
-    "globalCredentialIdList": [
-        "622b839c-a509-481a-8b1c-1b286fb16dbc",
-        "332c7981-a6c2-4b1f-8968-01869e57ebf4",
-        "bbb0c82f-8a8f-4872-84b4-4274ea67b306",
-        "379d6ac4-33c7-40ef-b93d-fcf94b02c511",
-        "88dea36b-0ed1-405c-8956-3cca59998056",
-        "85325c58-a9f8-45f9-ae85-31108642a91b"
-    ],
-    "ipAddressList": "100.124.0.1-100.124.1.2",
-    "name": "Fab-Switches-Disco",
-    "protocolOrder": "ssh",
-    "preferredMgmtIPMethod": "UseLoopBack",
-    "retry": 3,
-    "timeout": 5
-},
-"disco2":{
-    "discoveryType": "Range",
-    "globalCredentialIdList": [
-        "622b839c-a509-481a-8b1c-1b286fb16dbc",
-        "332c7981-a6c2-4b1f-8968-01869e57ebf4",
-        "bbb0c82f-8a8f-4872-84b4-4274ea67b306",
-        "379d6ac4-33c7-40ef-b93d-fcf94b02c511",
-        "88dea36b-0ed1-405c-8956-3cca59998056",
-        "85325c58-a9f8-45f9-ae85-31108642a91b"
-    ],
-    "ipAddressList": "100.127.0.2-100.127.0.2",
-    "name": "Fusion-Router-Disco",
-    "protocolOrder": "ssh",
-    "preferredMgmtIPMethod": "UseLoopBack",
-    "retry": 3,
-    "timeout": 5
-}
+	"disco1": {
+		"discoveryType": "Range",
+		"globalCredentialIdList": [],
+		"ipAddressList": "100.124.0.1-100.124.1.2",
+		"name": "Fab-Switches-Disco",
+		"protocolOrder": "ssh",
+		"preferredMgmtIPMethod": "UseLoopBack",
+		"retry": 3,
+		"timeout": 5
+	},
+	"disco2": {
+		"discoveryType": "Range",
+		"globalCredentialIdList": [],
+		"ipAddressList": "100.127.0.2-100.127.0.2",
+		"name": "Fusion-Router-Disco",
+		"protocolOrder": "ssh",
+		"preferredMgmtIPMethod": "UseLoopBack",
+		"retry": 3,
+		"timeout": 5
+	},
+	"disco3": {
+		"discoveryType": "Range",
+		"globalCredentialIdList": [],
+		"ipAddressList": "100.127.100.10-100.127.100.10",
+		"name": "Fab-WLC-Disco",
+		"protocolOrder": "ssh",
+		"preferredMgmtIPMethod": "UseLoopBack",
+		"retry": 3,
+		"timeout": 5
+	}
 }

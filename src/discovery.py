@@ -14,7 +14,8 @@ with open('cred.json') as json_file:
 dnac = api.DNACenterAPI(base_url=data['dnacurl'],
 username=data['username'],password=data['passwd'], verify=False)
 
-def disco_status(taskid = None):
+def task_status(taskid = None):
+    #this function is used to get task status, it returns the json response
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/task/' + taskid
     try:
@@ -24,30 +25,58 @@ def disco_status(taskid = None):
     except ApiError as e:
         print(e)
 
-def start_disco():
-    with open('disco.json') as json_file:
-        data = json.load(json_file)
-    
+def get_mycredentials():
+    #this function is use to retrieve global site device credential ids
     headers={"content-type" : "application/json", "__runsync" : "True"}
-    url = 'dna/intent/api/v1/discovery'
-    for i in data:
-        payload = (data[i])
-        
-        try:
-            response = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
-            #return response['response']['taskId']
-            time.sleep(2)
-            status = disco_status(response['response']['taskId'])
+    url = 'dna/intent/api/v1/device-credential'
+    myids= []
+    try:
+        response = dnac.custom_caller.call_api(method="GET", resource_path=url, headers=headers)
+        #pprint.pprint(response)
 
-            if status['response']['isError'] != False:
-                print(status['response']['failureReason'])
-            else:
-                print('Creating discovery {}'.format(payload['name']))
-        except ApiError as e:
-            print(e)
+        if "message" in response:
+            #means device credentials are empty/ none configured
+            return []
+        else:
+            for i in response:
+                nest = response[i]
+                for id in nest:
+                    myids.append((id['id']))
+            return myids
+    except ApiError as e:
+        print(e)
 
+def start_disco(credlist):
+    #this function is used to get task status, it returns the json response
+    if get_mycredentials() != []:
+        with open('disco.json') as json_file:
+            data = json.load(json_file)
+    
+        headers={"content-type" : "application/json", "__runsync" : "True"}
+        url = 'dna/intent/api/v1/discovery'
 
-start_disco()
+        for key in data:
+            data[key]['globalCredentialIdList'] = credlist
+            payload = data[key]    
+            #pprint.pprint(payload)
+            try:
+                response = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
+                #return response['response']['taskId']
+                time.sleep(2)
+                status = task_status(response['response']['taskId'])
+
+                if status['response']['isError'] != False:
+                    print(status['response']['failureReason'])
+                else:
+                    print('Creating discovery {}'.format(payload['name']))
+            except ApiError as e:
+                print(e)  
+    else:
+        print('Please create new device credentials first before running this script!')
+    
+
+credlist = get_mycredentials()
+start_disco(credlist)
 
 
 
