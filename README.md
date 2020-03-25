@@ -1,6 +1,6 @@
 # DNA Center Basic Build
 This repo contain a few Python scripts to help you quickly stand up DNAC Center basic configurations.
-This script is intended for people that need to repetitvely stand up DNA Centers or Use for demo/poc environments.
+This script is intended for people that need to repetitively stand up DNA Centers or have demo/poc environments that can be spun up and down.
 
 The scripts are grouped as follows:
 
