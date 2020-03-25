@@ -5,6 +5,7 @@ import pprint
 from dnacentersdk import api
 from dnacentersdk.exceptions import ApiError
 
+#Suppressing warning due to lack of certificate verificaton in https connection
 requests.packages.urllib3.disable_warnings() 
 
 #open cred file for dnac connection establishment

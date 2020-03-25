@@ -5,6 +5,7 @@ import pprint
 from dnacentersdk import api
 from dnacentersdk.exceptions import ApiError
 
+#Suppressing warning due to lack of certificate verificaton in https connection
 requests.packages.urllib3.disable_warnings() 
 
 #open cred file for dnac connection establishment
@@ -14,7 +15,7 @@ with open('cred.json') as json_file:
 dnac = api.DNACenterAPI(base_url=data['dnacurl'],
 username=data['username'],password=data['passwd'], verify=False)
 
-def task_status(taskid = None):
+def task_status(taskid=None):
     #this function is used to get task status, it returns the json response
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/task/' + taskid
@@ -35,7 +36,7 @@ def get_mycredentials():
         #pprint.pprint(response)
 
         if "message" in response:
-            #means device credentials are empty/ none configured
+            #means device credentials are empty/none configured
             return []
         else:
             for i in response:
