@@ -8,7 +8,6 @@ pylint = "*"
 
 [packages]
 requests = "*"
-pyyaml = "*"
 dnacentersdk = "*"
 
 [requires]
