@@ -15,7 +15,7 @@ dnac = api.DNACenterAPI(base_url=data['dnacurl'],
 username=data['username'],password=data['passwd'], verify=False)
 
 
-def task_status(taskid = None):
+def task_status(taskid=None):
     #this function is used to get task status, it returns the json response
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/task/' + taskid
@@ -32,7 +32,6 @@ def get_mysites(name=None):
         if name is None:
             response = dnac.sites.get_site()
             return response
-        
         else:
             nsplit = name.split("/")
             uname = nsplit[-1]
@@ -62,7 +61,7 @@ def create_mysites():
             print(e)
     
 def get_mycredentials():
-    #this function is use to retrieve global site device credential ids
+    #this function is used to retrieve global site device credential ids
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/device-credential'
     myids= []
@@ -71,7 +70,7 @@ def get_mycredentials():
         #print(json.dumps(response, indent=2))
 
         if "message" in response:
-            #means device credentials are empty/ none configured
+            #means device credentials are empty/none configured
             return []
         else:
             for i in response:
@@ -83,7 +82,7 @@ def get_mycredentials():
         print(e)
    
 def build_mycredentials():
-    #this function checks if there's an existing device credential if so delete and create new one through the given json file
+    #this function checks if there's an existing device credential and if so delete and create new one through the given json file
     if get_mycredentials() != []:
         print('Deleting existing device credentials ...')
         delete_mycredentials()
@@ -119,8 +118,7 @@ def delete_mycredentials():
         print(e)
 
 def create_netsettings():
-     #### correct script
-    #this function create network settings at global level based on parameters specified in json file
+    #this function creates network settings at global level based on parameters specified in json file
     with open('netsettings.json') as json_file:
         data = json.load(json_file)
 
@@ -135,12 +133,18 @@ def create_netsettings():
         print(e)
 
 
-#testing functions
+#####testing functions#####
 #get_mycredentials()
 #delete_mycredentials()
 #create_mycredentials()
 #get_mysites('Global')
+#####testing functions#####
 
+#create sites based on supplied json file
 create_mysites()
+
+#create credentials based on supplied json file
 build_mycredentials()
+
+#create network settings based on supplied json file
 create_netsettings()

@@ -15,7 +15,7 @@ dnac = api.DNACenterAPI(base_url=data['dnacurl'],
 username=data['username'],password=data['passwd'], verify=False)
 
 
-def task_status(taskid = None):
+def task_status(taskid=None):
     #this function is used to get task status, it returns the json response
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/task/' + taskid
@@ -32,7 +32,6 @@ def get_mysites(name=None):
         if name is None:
             response = dnac.sites.get_site()
             return response
-        
         else:
             nsplit = name.split("/")
             uname = nsplit[-1]
@@ -81,11 +80,8 @@ def create_mysitepool(siteid, puuid):
     
     url = 'api/v2/ippool/group'
     headers={"content-type" : "application/json", "__runsync" : "True"}
-
     payload = data['sitepool']
-    #pprint.pprint(payload)
     
-    #create through data dictonary scoped to sitepool level and create a child pool
     for i in payload:
         try:
             response = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(i))
@@ -100,7 +96,7 @@ def create_mysitepool(siteid, puuid):
             print(e)
 
 def get_pool(name=None):
-    #this function is used to retrieve uuid of global ip pool also known as puuid, when supplied with global ip pool name
+    #this function is used to retrieve uuid of global ip pool also known as puuid, when supplied with a global ip pool name
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/global-pool'
 
@@ -113,19 +109,19 @@ def get_pool(name=None):
             response = dnac.custom_caller.call_api(method="GET", resource_path=url, headers=headers)
             for i in response['response']:
                 if name == i['ipPoolName']:
-                    return i['id']
-
-
-            
+                    return i['id']     
     except ApiError as e:
             print(e)
 
 
-#use get_mysites function supplied site hierarchy name to retrive siteid
+#get site id 
 siteid = get_mysites('Global/UK-LONDON/PARK HOUSE')
+
+#create global pool based on supplied json file
 create_myglobalpool()
 
-#get parent uuid required to create child pools, use get_pool function supplied with parent pool name
+#get parent uuid
 puuid= get_pool('Global-Pool1')
 
+#create site pools based on supplied json file
 create_mysitepool(siteid, puuid)

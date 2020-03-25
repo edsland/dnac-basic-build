@@ -26,7 +26,7 @@ def task_status(taskid = None):
         print(e)
 
 def get_mycredentials():
-    #this function is use to retrieve global site device credential ids
+    #this function is used to retrieve global site device credential ids
     headers={"content-type" : "application/json", "__runsync" : "True"}
     url = 'dna/intent/api/v1/device-credential'
     myids= []
@@ -47,7 +47,7 @@ def get_mycredentials():
         print(e)
 
 def start_disco(credlist):
-    #this function is used to get task status, it returns the json response
+    #this function is used to start network discovery jobs based on supplied json file
     if get_mycredentials() != []:
         with open('disco.json') as json_file:
             data = json.load(json_file)
@@ -58,7 +58,6 @@ def start_disco(credlist):
         for key in data:
             data[key]['globalCredentialIdList'] = credlist
             payload = data[key]    
-            #pprint.pprint(payload)
             try:
                 response = dnac.custom_caller.call_api(method="POST", resource_path=url, headers=headers, data=json.dumps(payload))
                 #return response['response']['taskId']
@@ -75,7 +74,11 @@ def start_disco(credlist):
         print('Please create new device credentials first before running this script!')
     
 
+
+#retrieve credential list ids as input for start_disco function to auto-complete json file
 credlist = get_mycredentials()
+
+#kickoff discovery process
 start_disco(credlist)
 
 

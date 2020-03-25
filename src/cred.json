@@ -1,5 +1,5 @@
 {
-	"dnacurl": "https://10.53.201.111/:443",
+	"dnacurl": "https://dnac.sdapov.local/:443",
 	"username": "admin",
 	"passwd": "C1sco12345"
 }
