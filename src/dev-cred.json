@@ -11,13 +11,13 @@
         "snmpV2cRead": [
             {
                 "description": "RO",
-                "readCommunity": "ro"
+                "readCommunity": "RO"
             }
         ],
         "snmpV2cWrite": [
             {
                 "description": "RW",
-                "writeCommunity": "rw"
+                "writeCommunity": "RW"
             }
         ],
         "httpsRead": [
