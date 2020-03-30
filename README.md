@@ -12,20 +12,20 @@ In the event there's an existing global device credentials present. These will b
 >
 
 #### JSON files to use:
-sites.json - this file describes design elememts such as area, building, floors, etc
-dev-cred.json - this file details global device credential settings such as CLI, SNMP, HTTP, etc
-netsettings.json - this file includes global network settings such as NTP, SNMP, Syslog, tec
+* sites.json - this file describes design elememts such as area, building, floors, etc
+* dev-cred.json - this file details global device credential settings such as CLI, SNMP, HTTP, etc
+* netsettings.json - this file includes global network settings such as NTP, SNMP, Syslog, tec
 
 ## IP Pool Build
 This script builds IP Pools, starting with creating Global pool(s) and reserving site specific pools. Example of the json file required to create IP pools is includes in this repo.
 
 #### JSON file to use:
-pools.json - this file details IP Address Pool allocations at global and site level
+* pools.json - this file details IP Address Pool allocations at global and site level
 
 
 ## Network Discovery
 This script instantiate network discovery to start adding devices into DNAC for management. This script leverages the Global site device credentials to kick off discoveries. My example shows issuing three network discoveries.
 
 #### JSON file to use:
-disco.json - this file describes discovery settings to initiate device discovery
+* disco.json - this file describes discovery settings to initiate device discovery
 
