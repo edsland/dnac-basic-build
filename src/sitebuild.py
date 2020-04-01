@@ -51,16 +51,17 @@ def create_mysites():
         data = json.load(json_file)
     
     try: 
-        for item in data['site']:
-            #print(data['site'][item])
+        for key, value in data['site'].items():
             sites = {}
-            sites[item] = data['site'][item]
-            dnac.sites.create_site(site=sites, type=item)
-            time.sleep(2)
+            sites[key] = value
+            response = dnac.sites.create_site(site=sites, type=key)
+            #pprint.pprint(response)
+            time.sleep(3)
         print('Creating site hierarchy!')
+        return response['executionId']
     except ApiError as e:
             print(e)
-    
+            
 def get_mycredentials():
     #this function is used to retrieve global site device credential ids
     headers={"content-type" : "application/json", "__runsync" : "True"}
