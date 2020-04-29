@@ -104,8 +104,8 @@
 			"siteId": "",
 			"ipPools": [{
 				"parentUuid": "",
-				"dhcpServerIps": ["100.64.0.133"],
-				"dnsServerIps": ["100.64.0.133"],
+				"dhcpServerIps": [],
+				"dnsServerIps": [],
 				"ipPoolOwner": "DNAC",
 				"shared": true,
 				"gateways": ["100.124.128.1"],
@@ -119,8 +119,8 @@
 			"siteId": "",
 			"ipPools": [{
 				"parentUuid": "",
-				"dhcpServerIps": [],
-				"dnsServerIps": [],
+				"dhcpServerIps": ["100.64.0.133"],
+				"dnsServerIps": ["100.64.0.133"],
 				"ipPoolOwner": "DNAC",
 				"shared": true,
 				"gateways": ["100.124.129.1"],
