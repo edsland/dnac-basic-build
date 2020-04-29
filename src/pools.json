@@ -124,7 +124,7 @@
 				"ipPoolOwner": "DNAC",
 				"shared": true,
 				"gateways": ["100.124.129.1"],
-				"ipPoolCidr": "100.124.128.0/24"
+				"ipPoolCidr": "100.124.129.0/24"
 			}]
 		}
 	]
