@@ -109,6 +109,21 @@
 				"ipPoolOwner": "DNAC",
 				"shared": true,
 				"gateways": ["100.124.128.1"],
+				"ipPoolCidr": "100.124.128.0/24"
+			}]
+		},
+		{
+			"groupName": "Wireless-Sensor",
+			"groupOwner": "DNAC",
+			"type": "lan",
+			"siteId": "",
+			"ipPools": [{
+				"parentUuid": "",
+				"dhcpServerIps": [],
+				"dnsServerIps": [],
+				"ipPoolOwner": "DNAC",
+				"shared": true,
+				"gateways": ["100.124.129.1"],
 				"ipPoolCidr": "100.124.128.0/25"
 			}]
 		}
